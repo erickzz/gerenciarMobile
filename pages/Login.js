@@ -15,10 +15,14 @@ export default function Login({ navigation }) {
     event.preventDefault();
     let token = null;
     try {
-      const response = await axios.post(`${apiUrl}/api/user/authenticate`, {
-        email: email,
-        senha: password,
-      });
+      const response = await axios.post(
+         // `http://192.168.2.12:5193/api/user/authenticate`, // Alternativa 1 do caminho
+        `${apiUrl}/api/user/authenticate`, // Alternativa 2 do caminho
+        {
+          email: email,
+          senha: password,
+        }
+      );
       token = response.data.jwtToken;
       // console.log(token);
       ctx.onLogin(token);
@@ -56,6 +60,7 @@ export default function Login({ navigation }) {
           style={styles.loginInput}
           onChangeText={onChangePassword}
           value={password}
+          secureTextEntry={true}
         />
       </View>
       <Pressable style={styles.loginButton} onPress={loginHandler}>
